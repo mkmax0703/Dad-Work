@@ -83,7 +83,7 @@
             <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.01-.24 11.36 11.36 0 0 0 3.56.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.07 21 3 13.93 3 5a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.36 11.36 0 0 0 .57 3.56 1 1 0 0 1-.24 1.01l-2.2 2.22Z"/></svg>
             <div>
               <div>Call Us</div>
-              <div class="small">+1 (626) 616‑3633</div>
+              <div class="small">+1 (626) 616-3633</div>
             </div>
           </a>
           <a class="linkbtn" href="mailto:jkanounji@dbstrategies.net">
@@ -140,17 +140,15 @@
           <a class="linkbtn" id="vcardLink" download="DBS.vcf">Download vCard (save our contact)</a>
           <button class="linkbtn copy" data-copy="jkanounji@dbstrategies.net">Copy Email</button>
         </div>
-        
       </div>
 
       <div class="divider"></div>
 
       <div class="footer">
         <div class="row">
-          <span class="pill">Fast • Secure • One‑tap</span>
+          <span class="pill">Fast • Secure • One-tap</span>
           <span class="badge">© <span id="y"></span> Design Build Strategies</span>
         </div>
-        
       </div>
     </section>
 
@@ -208,14 +206,25 @@
       link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
     })();
 
-    // Logo fallback if main logo missing
+    // Robust logo loader: tries multiple filenames & formats; cache-busts; falls back to icon then text
     (function(){
-      const brand = document.getElementById('brandLogo');
-      if(!brand) return;
-      brand.addEventListener('error', function onErr(){
-        if(!brand.dataset.altTried){ brand.dataset.altTried='1'; brand.src='assets/icon.png'; }
-        else { brand.outerHTML='DBS'; }
-      });
+      const img = document.getElementById('brandLogo');
+      if(!img) return;
+      const t = Date.now();
+      const candidates = [
+        'assets/logo.png','assets/Logo.png','assets/LOGO.png',
+        'assets/logo.webp','assets/logo.jpg','assets/logo.jpeg','assets/logo.svg',
+        'assets/icon.png','assets/Icon.png','assets/icon.webp'
+      ];
+      let i = 0;
+      const tryNext = () => {
+        if (i >= candidates.length) { img.outerHTML = 'DBS'; return; }
+        img.onerror = tryNext;               // try next if this one fails
+        img.onload = () => { img.onerror = null; }; // stop chain on success
+        img.src = candidates[i++] + '?v=' + t; // cache-bust each attempt
+      };
+      // Kick off (even if initial src worked, this will just reload same file with cache-bust)
+      tryNext();
     })();
 
     // --- Minimal self-tests (dev console) ---
@@ -228,8 +237,12 @@
         // After vCard init runs, href should be a data URL
         setTimeout(()=>{
           console.assert(/^data:text\/vcard/.test(v.href), 'vCard href not set');
+          const logoImg = document.getElementById('brandLogo');
+          const fallbackOK = document.querySelector('.logo')?.textContent.trim() === 'DBS';
+          const logoOK = logoImg && logoImg.complete && logoImg.naturalWidth > 0;
+          console.assert(logoOK || fallbackOK, 'logo not loaded and no fallback');
           console.log('[DBS links] basic tests passed');
-        }, 0);
+        }, 200);
       }catch(e){ console.warn('self-tests error', e); }
     })();
   </script>
