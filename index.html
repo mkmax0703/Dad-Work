@@ -202,8 +202,7 @@
         'URL;TYPE=WORK:'+url,
         'REV:'+rev,
         'END:VCARD'
-      ].join('
-');
+      ].join('\n');
       link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
     })();
   </script>
