@@ -57,7 +57,7 @@
     <!-- Header Card -->
     <section class="card">
       <div class="header">
-        <div class="logo"><img src="assets/logo.png" alt="Design Build Strategies logo" onerror="this.outerHTML='DBS'"/></div>
+        <div class="logo"><img id="brandLogo" src="assets/logo.png" alt="Design Build Strategies logo"></div>
         <div>
           <h1 class="title">Design Build Strategies</h1>
           <p class="subtitle">Architecture · General Contracting · Los Angeles</p>
@@ -104,7 +104,7 @@
       </div>
 
       <div class="section">
-        <p class="h2">Testimonials</p>
+        <p class="h2">Company</p>
         <div class="grid">
           <a class="linkbtn" href="https://www.google.com/maps/place/Design+Build+Strategies/@34.1445468,-118.1147687,905m/data=!3m1!1e3!4m18!1m9!3m8!1s0x80c2dd8b704102f7:0x241ed1f3e82acf5d!2sDesign+Build+Strategies!8m2!3d34.1445424!4d-118.1121938!9m1!1b1!16s%2Fg%2F11jmywqgsh!3m7!1s0x80c2dd8b704102f7:0x241ed1f3e82acf5d!8m2!3d34.1445424!4d-118.1121938!9m1!1b1!16s%2Fg%2F11jmywqgsh!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MDkwOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">
             <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 0 0-2 2v14l4-4h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"/></svg>
@@ -112,6 +112,16 @@
               <div>Google Reviews</div>
               <div class="small">Read & write reviews</div>
             </div>
+          </a>
+          <a class="linkbtn" href="https://www.dbstrategies.net/profile" target="_blank" rel="noopener">
+            <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M12 5a4 4 0 1 1 0 8 4 4 0 0 1 0-8Zm0 9c-3.87 0-7 1.79-7 4v1h14v-1c0-2.21-3.13-4-7-4Z"/></svg>
+            <div>
+              <div>About DBS</div>
+              <div class="small">Team, licenses, process</div>
+            </div>
+          </a>
+        </div>
+      </div>
           </a>
         </div>
       </div>
@@ -150,7 +160,7 @@
           <a class="linkbtn" id="vcardLink" download="DBS.vcf">Download vCard (save our contact)</a>
           <button class="linkbtn copy" data-copy="jkanounji@dbstrategies.net">Copy Email</button>
         </div>
-        <p class="note">Replace social URLs with your real links. Upload your logo at <code>/assets/logo.png</code>.</p>
+        
       </div>
 
       <div class="divider"></div>
@@ -164,13 +174,7 @@
       </div>
     </section>
 
-    <!-- Optional QR block (swap src to your generated QR image) -->
-    <div class="section" style="display:flex; justify-content:center; margin-top:18px">
-      <div class="qr" title="Scan to open">
-        <img id="qr" alt="QR code" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Crect width='120' height='120' fill='white'/%3E%3Ctext x='50%' y='50%' text-anchor='middle' dominant-baseline='middle' font-family='Arial' font-size='10'%3EQR HERE%3C/text%3E%3C/svg%3E"/>
-      </div>
-    </div>
-  </main>
+    </main>
 
   <script>
     // Year
@@ -222,6 +226,16 @@
         'END:VCARD'
       ].join('\n');
       link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
+    })();
+
+    // Logo fallback if main logo missing
+    (function(){
+      const brand = document.getElementById('brandLogo');
+      if(!brand) return;
+      brand.addEventListener('error', function onErr(){
+        if(!brand.dataset.altTried){ brand.dataset.altTried='1'; brand.src='assets/icon.png'; }
+        else { brand.outerHTML='DBS'; }
+      });
     })();
 
     // --- Minimal self-tests (dev console) ---
