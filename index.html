@@ -94,15 +94,16 @@
     }
   </style>
 
-  <link rel="icon" href="assets/favicon-64.png" sizes="64x64">
-  <link rel="icon" type="image/png" href="assets/favicon-64.png">
-  <link rel="apple-touch-icon" href="assets/favicon-64.png">
+  <!-- Root-relative favicon paths -->
+  <link rel="icon" href="/favicon-64.png" sizes="64x64">
+  <link rel="icon" type="image/png" href="/favicon-64.png">
+  <link rel="apple-touch-icon" href="/favicon-64.png">
 </head>
 <body>
   <!-- Opening animation overlay -->
   <div class="intro" id="intro" aria-hidden="true">
     <div class="intro-logo" id="introLogo">
-      <img src="assets/logo.png" alt="DBS" />
+      <img src="/logo.png" alt="DBS">
     </div>
   </div>
 
@@ -111,7 +112,7 @@
       <!-- Centered header with logo on top -->
       <div class="header">
         <div class="logo" id="headerLogo">
-          <img id="brandLogo" src="assets/logo.png" alt="Design Build Strategies logo" decoding="async" loading="eager">
+          <img id="brandLogo" src="/logo.png" alt="Design Build Strategies logo" width="256" height="256" decoding="async" loading="eager">
         </div>
         <div>
           <h1 class="title">Design Build Strategies</h1>
@@ -188,10 +189,8 @@
       const card    = document.getElementById('mainCard');
       const headerLogo = document.getElementById('headerLogo');
 
-      // If reduced motion, skip fancy stuff
+      // Respect prefers-reduced-motion
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-      // Make main card visible after small delay (or immediately if reduced)
       const showCard = () => requestAnimationFrame(() => card.classList.add('is-visible'));
 
       if (reduce){
@@ -200,30 +199,24 @@
         return;
       }
 
-      // Align intro logo to screen center initially (it's already centered by CSS)
-      // Then animate it into the header logo's position using WAAPI FLIP-style
       const endBox = headerLogo.getBoundingClientRect();
       const startBox = introEl.getBoundingClientRect();
 
-      // Compute deltas
       const deltaX = (endBox.left + endBox.width/2) - (startBox.left + startBox.width/2);
       const deltaY = (endBox.top + endBox.height/2) - (startBox.top + startBox.height/2);
       const scaleX = endBox.width / startBox.width;
       const scaleY = endBox.height / startBox.height;
 
-      // Keyframes: quick pulse already ran via CSS; now fly + shrink
       const flyTiming = { duration: 850, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards', delay: 150 };
+
       introEl.animate([
         { transform: 'translate(0,0) scale(1)', filter:'none', opacity:1 },
         { transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`, opacity:1 }
       ], flyTiming).onfinish = () => {
-        // Fade the overlay and ensure header logo is in place
         intro.classList.add('hidden');
       };
 
-      // Stagger reveal the content slightly after the move starts
       setTimeout(showCard, 250);
-      // Safety: remove intro node after transition
       setTimeout(() => intro.remove(), 1200);
     });
 
