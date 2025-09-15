@@ -100,6 +100,38 @@
   <link rel="apple-touch-icon" href="/favicon-64.png">
 </head>
 <body>
+  <script>
+  (function(){
+    const paths = [
+      document.getElementById('brandLogo')?.getAttribute('src') || 'logo.png',
+      './logo.png', '/logo.png', 'assets/logo.png', '/assets/logo.png',
+      'Logo.png', './Logo.png', '/Logo.png', 'logo.PNG', './logo.PNG'
+    ];
+    const panel = document.createElement('div');
+    panel.style.cssText = 'position:fixed;bottom:10px;right:10px;z-index:9999;background:#111315;color:#ffd8b3;border:1px solid rgba(255,122,0,.4);padding:10px 12px;border-radius:10px;font:12px/1.2 Inter,system-ui';
+    panel.innerHTML = '<b>Logo path check</b><div id="lg-results" style="margin-top:6px"></div>';
+    document.body.appendChild(panel);
+    const out = document.getElementById('lg-results');
+
+    (async () => {
+      for (const p of paths) {
+        try{
+          const r = await fetch(p+'?v='+Date.now(), {method:'HEAD', cache:'no-store'});
+          out.insertAdjacentHTML('beforeend', `<div>${r.ok ? '✅' : '❌'} <code>${p}</code> ${r.status}</div>`);
+          if (r.ok) {
+            // set the working one
+            const img = document.getElementById('brandLogo');
+            if (img) img.src = p;
+            break;
+          }
+        }catch(e){
+          out.insertAdjacentHTML('beforeend', `<div>❌ <code>${p}</code> (error)</div>`);
+        }
+      }
+    })();
+  })();
+  </script>
+
   <!-- Opening animation overlay -->
   <div class="intro" id="intro" aria-hidden="true">
     <div class="intro-logo" id="introLogo">
