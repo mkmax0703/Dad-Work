@@ -26,7 +26,6 @@
     }
     a{color:inherit; text-decoration:none}
 
-    /* Layout */
     .container{max-width:720px; margin:0 auto; padding:32px 20px 56px}
     .card{
       background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
@@ -35,27 +34,26 @@
     }
     .card.is-visible{opacity:1; transform:none}
 
-    /* Header: centered stack, logo on top */
     .header{display:flex; flex-direction:column; align-items:center; text-align:center}
-  .logo {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 1rem;
-  }
 
-  .logo img {
-  max-width: 100%;
-  width: 200px;   /* Bigger, rectangular */
-  height: auto;   /* Keeps proportions */
-  border-radius: 12px; /* optional, like your template */
-  object-fit: cover;
-  }
-    .title{font-family: 'Montserrat', sans-serif; font-size:32px; font-weight:800; line-height:1.15; margin:1px 0 0}
+    .logo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
 
-    .firstSubtitle{font-family: 'Montserrat', sans-serif; margin:10px 0 0; color:var(--muted); letter-spacing:.2px}
-    .subtitle{font-family: 'Montserrat', sans-serif; margin:2px 0 0; color:var(--muted); letter-spacing:.2px}
+    .logo img {
+      max-width: 100%;
+      width: 200px;
+      height: auto;
+      border-radius: 12px;
+      object-fit: cover;
+    }
 
+    .title{font-family:'Montserrat',sans-serif; font-size:32px; font-weight:800; line-height:1.15; margin:1px 0 0}
+    .firstSubtitle{font-family:'Montserrat',sans-serif; margin:10px 0 0; color:var(--muted); letter-spacing:.2px}
+    .subtitle{font-family:'Montserrat',sans-serif; margin:2px 0 0; color:var(--muted); letter-spacing:.2px}
 
     .grid{display:grid; gap:14px; margin-top:18px}
     .linkbtn{
@@ -63,12 +61,11 @@
       border:1px solid rgba(255,122,0,.25);
       background:linear-gradient(180deg, rgba(255,122,0,.12), rgba(255,122,0,.06));
       transition:transform .08s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
-      width:300px;             
-      margin:0 auto; 
-      font-family: 'Montserrat', sans-serif;
-      text-align: center; 
+      width:300px; margin:0 auto;
+      font-family:'Montserrat',sans-serif; text-align:center;
     }
     .linkbtn:hover{transform:translateY(-1px); border-color:rgba(255,122,0,.45); box-shadow:0 8px 20px rgba(255,122,0,.15)}
+
     .icon{width:22px; height:22px; opacity:.9}
 
     .section{margin-top:24px}
@@ -77,29 +74,23 @@
     .badge{font-size:11px; padding:4px 8px; border-radius:999px; background:rgba(255,122,0,.08); border:1px solid rgba(255,122,0,.35); color:#ffcaa1}
     .divider{height:1px; background:linear-gradient(90deg, transparent, rgba(255,122,0,.35), transparent); margin:18px 0}
 
-    .small{font-family: 'Montserrat', sans-serif; font-size:12px; margin:0; color:var(--muted)}
+    .small{font-family:'Montserrat',sans-serif; font-size:12px; margin:0; color:var(--muted)}
 
-    /* Social Icons Row */
-  .social-icons {
-    margin-top: 18px;
-    display: flex;
-    justify-content: center;
-    gap: 18px;            /* space between icons */
-  }
+    .social-icons {
+      margin-top: 18px;
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+    }
+    .social-icons img {
+      width: 36px;
+      height: 36px;
+      object-fit: contain;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .social-icons img:hover { transform: scale(1.15); }
 
-  .social-icons img {
-    width: 36px;          /* size of icons */
-    height: 36px;
-    object-fit: contain;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-  }
-
-  .social-icons img:hover {
-    transform: scale(1.15); /* zoom on hover */
-  }
-
-    /* Intro overlay */
     .intro{
       position:fixed; inset:0; display:grid; place-items:center; z-index:999;
       background:radial-gradient(900px 600px at 50% -10%, rgba(255,122,0,.12), transparent 60%), var(--bg);
@@ -120,27 +111,22 @@
       100%{ transform:scale(1.0); filter:none; box-shadow:0 12px 40px rgba(255,122,0,.2); }
     }
 
-    /* Respect reduced motion */
     @media (prefers-reduced-motion: reduce){
       .intro-logo{animation:none}
       .card{transition:none}
     }
 
     @media (max-width:480px){
-      .logo{width:64px; height:64px}
+      .logo img{width:160px}
       .title{font-size:26px}
     }
   </style>
 
-  <!-- Root-relative favicon paths -->
-  <link rel="icon" href="/favicon-64.png" sizes="64x64">
-  <link rel="icon" type="image/png" href="/favicon-64.png">
-  <link rel="apple-touch-icon" href="/favicon-64.png">
+  <link rel="icon" href="./favicon-64.png">
+  <link rel="apple-touch-icon" href="./favicon-64.png">
 </head>
 <body>
- 
 
-  <!-- Opening animation overlay -->
   <div class="intro" id="intro" aria-hidden="true">
     <div class="intro-logo" id="introLogo">
       <img src="logo.png" alt="DBS">
@@ -149,10 +135,9 @@
 
   <main class="container">
     <section class="card" id="mainCard">
-      <!-- Centered header with logo on top -->
       <div class="header">
         <div class="logo" id="headerLogo">
-          <img id="brandLogo" src="logo.png" alt="Design Build Strategies logo" width="256" height="256" decoding="async" loading="eager">
+          <img id="brandLogo" src="logo.png" alt="Design Build Strategies logo" width="256" height="256">
         </div>
         <div>
           <h1 class="title">design build strategies, inc.</h1>
@@ -163,50 +148,33 @@
       </div>
 
       <div class="section">
-
         <div class="grid">
-
-           <!-- Website -->
-           <a class="linkbtn" href="https://www.dbstrategies.net" target="_blank" rel="noopener">
-              <div>Website</div>
-           </a>
-
-           <!-- vCard -->
-           <a class="linkbtn" id="vcardLink" download="DBS.vcf">
-              <div>vCard</div>
-              <div class="small">Save Our Contact</div>
-          </a>
-        
-          <!-- Google Reviews -->
-          <a class="linkbtn" href="https://www.google.com/maps/place/Design+Build+Strategies/@34.1445468,-118.1147687,905m/data=!3m1!1e3!4m18!1m9!3m8!1s0x80c2dd8b704102f7:0x241ed1f3e82acf5d!2sDesign+Build+Strategies!8m2!3d34.1445424!4d-118.1121938!9m1!1b1!16s%2Fg%2F11jmywqgsh!3m7!1s0x80c2dd8b704102f7:0x241ed1f3e82acf5d!8m2!3d34.1445424!4d-118.1121938!9m1!1b1!16s%2Fg%2F11jmywqgsh!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MDkwOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">
-              <div>Google Reviews</div>
-              <div class="small">Read & Write reviews</div>
+          <a class="linkbtn" href="https://www.dbstrategies.net" target="_blank" rel="noopener">
+            <div>Website</div>
           </a>
 
+          <a class="linkbtn" id="vcardLink" download="DBS.vcf">
+            <div>vCard</div>
+            <div class="small">Save Our Contact</div>
+          </a>
+
+          <a class="linkbtn" href="https://www.google.com/maps/place/Design+Build+Strategies/" target="_blank" rel="noopener">
+            <div>Google Reviews</div>
+            <div class="small">Read & Write reviews</div>
+          </a>
         </div>
       </div>
-       
-      <div class="section">
-       <!-- Social icons row -->
-      <div class="social-icons">
-        <a href="https://www.instagram.com/dbstrategies/" target="_blank" rel="noopener">
-          <img src="insta.webp" alt="Instagram">
-        </a>
-        <a href="https://www.facebook.com/profile.php?id=100084723083924" target="_blank" rel="noopener">
-          <img src="fb.png" alt="Facebook">
-        </a>
-        <a href="https://www.linkedin.com/in/johnny-kanounji-a58b936/" target="_blank" rel="noopener">
-          <img src="linkedin.png" alt="LinkedIn">
-        </a>
-        <a href="https://www.youtube.com/channel/UCpXTjsK6YZKbsE0Wa_kR1yw/featured" target="_blank" rel="noopener">
-          <img src="YT.webp" alt="YouTube">
-        </a>
-      </div>
-    </div>
 
+      <div class="section">
+        <div class="social-icons">
+          <a href="https://www.instagram.com/dbstrategies/" target="_blank"><img src="insta.webp" alt="Instagram"></a>
+          <a href="https://www.facebook.com/profile.php?id=100084723083924" target="_blank"><img src="fb.png" alt="Facebook"></a>
+          <a href="https://www.linkedin.com/in/johnny-kanounji-a58b936/" target="_blank"><img src="linkedin.png" alt="LinkedIn"></a>
+          <a href="https://www.youtube.com/channel/UCpXTjsK6YZKbsE0Wa_kR1yw/featured" target="_blank"><img src="YT.webp" alt="YouTube"></a>
+        </div>
+      </div>
 
       <div class="divider"></div>
-
       <div class="footer">
         <span class="badge">© <span id="y"></span> Design Build Strategies</span>
       </div>
@@ -214,73 +182,16 @@
   </main>
 
   <script>
-    // Year
     document.getElementById('y').textContent = new Date().getFullYear();
-
-    // vCard data URL (inline, no separate file needed)
     (function(){
       const link = document.getElementById('vcardLink');
       if (!link) return;
-      const org   = 'Design Build Strategies';
-      const fn    = 'Johnny Kanounji';
-      const title = 'Architect & General Contractor';
-      const tel   = '+1-626-616-3633';
-      const email = 'jkanounji@dbstrategies.net';
-      const url   = 'https://www.dbstrategies.net';
-      const iso = new Date().toISOString().replace(/[-:]/g,'');
-      const rev = iso.substring(0,15) + 'Z';
       const vcard = [
-        'BEGIN:VCARD','VERSION:3.0','N:Kanounji;Johnny;;;','FN:'+fn,'ORG:'+org,'TITLE:'+title,
-        'TEL;TYPE=WORK,VOICE:'+tel,'EMAIL;TYPE=WORK:'+email,'URL;TYPE=WORK:'+url,'REV:'+rev,'END:VCARD'
+        'BEGIN:VCARD','VERSION:3.0','N:Kanounji;Johnny;;;','FN:Johnny Kanounji','ORG:Design Build Strategies','TITLE:Architect & General Contractor',
+        'TEL;TYPE=WORK,VOICE:+1-626-616-3633','EMAIL;TYPE=WORK:jkanounji@dbstrategies.net','URL;TYPE=WORK:https://www.dbstrategies.net',
+        'REV:'+new Date().toISOString(),'END:VCARD'
       ].join('\n');
-      link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
-    })();
-
-    // --- Opening animation: center logo -> fly to header logo, reveal card ---
-    window.addEventListener('load', () => {
-      const intro   = document.getElementById('intro');
-      const introEl = document.getElementById('introLogo');
-      const card    = document.getElementById('mainCard');
-      const headerLogo = document.getElementById('headerLogo');
-
-      // Respect prefers-reduced-motion
-      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const showCard = () => requestAnimationFrame(() => card.classList.add('is-visible'));
-
-      if (reduce){
-        intro.classList.add('hidden');
-        showCard();
-        return;
-      }
-
-      const endBox = headerLogo.getBoundingClientRect();
-      const startBox = introEl.getBoundingClientRect();
-
-      const deltaX = (endBox.left + endBox.width/2) - (startBox.left + startBox.width/2);
-      const deltaY = (endBox.top + endBox.height/2) - (startBox.top + startBox.height/2);
-      const scaleX = endBox.width / startBox.width;
-      const scaleY = endBox.height / startBox.height;
-
-      const flyTiming = { duration: 850, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards', delay: 150 };
-
-      introEl.animate([
-        { transform: 'translate(0,0) scale(1)', filter:'none', opacity:1 },
-        { transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`, opacity:1 }
-      ], flyTiming).onfinish = () => {
-        intro.classList.add('hidden');
-      };
-
-      setTimeout(showCard, 250);
-      setTimeout(() => intro.remove(), 1200);
-    });
-
-    // --- Minimal self-tests (dev console) ---
-    (function tests(){
-      try{
-        const v = document.getElementById('vcardLink');
-        console.assert(v && v.getAttribute('download'), 'vCard link missing download attr');
-        setTimeout(()=>{ console.assert(/^data:text\/vcard/.test(v.href), 'vCard href not set'); }, 0);
-      }catch(e){ /* noop */ }
+      link.href = 'data:text/vcard;charset=utf-8,'+encodeURIComponent(vcard);
     })();
   </script>
 </body>

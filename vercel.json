@@ -1,5 +1,6 @@
 {
-  "version": 2,
-  "builds": [{ "src": "index.html", "use": "@vercel/static" }],
-  "routes": [{ "src": "/(.*)", "dest": "/index.html" }]
+  "rewrites": [
+    { "source": "/(.*)\\.(css|js|png|jpg|jpeg|gif|svg|webp|ico|txt|json|mp4|webm|wav|mp3|woff2?)", "destination": "/$1.$2" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
 }
