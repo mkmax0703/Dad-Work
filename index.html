@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+
   <style>
     :root{
       --bg:#0a0a0a; --card:#111315; --muted:#9aa4af; --text:#ffffff; --accent:#ff7a00; --accent2:#ffd2a3;
@@ -34,22 +36,37 @@
     .card.is-visible{opacity:1; transform:none}
 
     /* Header: centered stack, logo on top */
-    .header{display:flex; flex-direction:column; align-items:center; text-align:center; gap:12px}
-    .logo{
-      width:76px; height:76px; border-radius:18px; display:grid; place-items:center;
-      background:#0f0f0f; border:1px solid rgba(255,122,0,.55); overflow:hidden; padding:8px;
-      box-shadow:0 8px 30px rgba(255,122,0,.12);
-    }
-    .logo img{width:100%; height:100%; object-fit:contain; image-rendering:auto; display:block}
-    .title{font-size:32px; font-weight:800; line-height:1.15; margin:8px 0 0}
-    .subtitle{margin:2px 0 0; color:var(--muted); letter-spacing:.2px}
+    .header{display:flex; flex-direction:column; align-items:center; text-align:center}
+  .logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+  }
+
+  .logo img {
+  max-width: 100%;
+  width: 200px;   /* Bigger, rectangular */
+  height: auto;   /* Keeps proportions */
+  border-radius: 12px; /* optional, like your template */
+  object-fit: cover;
+  }
+    .title{font-family: 'Montserrat', sans-serif; font-size:32px; font-weight:800; line-height:1.15; margin:1px 0 0}
+
+    .firstSubtitle{font-family: 'Montserrat', sans-serif; margin:10px 0 0; color:var(--muted); letter-spacing:.2px}
+    .subtitle{font-family: 'Montserrat', sans-serif; margin:2px 0 0; color:var(--muted); letter-spacing:.2px}
+
 
     .grid{display:grid; gap:14px; margin-top:18px}
     .linkbtn{
-      display:flex; align-items:center; gap:12px; padding:16px 16px; border-radius:14px;
+      display:flex; flex-direction: column; justify-content: center; align-items:center; gap:5px; padding:16px 16px; border-radius:14px;
       border:1px solid rgba(255,122,0,.25);
       background:linear-gradient(180deg, rgba(255,122,0,.12), rgba(255,122,0,.06));
-      transition:transform .08s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease
+      transition:transform .08s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
+      width:300px;             
+      margin:0 auto; 
+      font-family: 'Montserrat', sans-serif;
+      text-align: center; 
     }
     .linkbtn:hover{transform:translateY(-1px); border-color:rgba(255,122,0,.45); box-shadow:0 8px 20px rgba(255,122,0,.15)}
     .icon{width:22px; height:22px; opacity:.9}
@@ -59,7 +76,28 @@
     .footer{margin-top:26px; display:flex; justify-content:center; align-items:center; color:var(--muted); font-size:12px}
     .badge{font-size:11px; padding:4px 8px; border-radius:999px; background:rgba(255,122,0,.08); border:1px solid rgba(255,122,0,.35); color:#ffcaa1}
     .divider{height:1px; background:linear-gradient(90deg, transparent, rgba(255,122,0,.35), transparent); margin:18px 0}
-    .small{font-size:12px; color:var(--muted)}
+
+    .small{font-family: 'Montserrat', sans-serif; font-size:12px; margin:0; color:var(--muted)}
+
+    /* Social Icons Row */
+  .social-icons {
+    margin-top: 18px;
+    display: flex;
+    justify-content: center;
+    gap: 18px;            /* space between icons */
+  }
+
+  .social-icons img {
+    width: 36px;          /* size of icons */
+    height: 36px;
+    object-fit: contain;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+
+  .social-icons img:hover {
+    transform: scale(1.15); /* zoom on hover */
+  }
 
     /* Intro overlay */
     .intro{
@@ -100,42 +138,12 @@
   <link rel="apple-touch-icon" href="/favicon-64.png">
 </head>
 <body>
-  <script>
-  (function(){
-    const paths = [
-      document.getElementById('brandLogo')?.getAttribute('src') || 'logo.png',
-      './logo.png', '/logo.png', 'assets/logo.png', '/assets/logo.png',
-      'Logo.png', './Logo.png', '/Logo.png', 'logo.PNG', './logo.PNG'
-    ];
-    const panel = document.createElement('div');
-    panel.style.cssText = 'position:fixed;bottom:10px;right:10px;z-index:9999;background:#111315;color:#ffd8b3;border:1px solid rgba(255,122,0,.4);padding:10px 12px;border-radius:10px;font:12px/1.2 Inter,system-ui';
-    panel.innerHTML = '<b>Logo path check</b><div id="lg-results" style="margin-top:6px"></div>';
-    document.body.appendChild(panel);
-    const out = document.getElementById('lg-results');
-
-    (async () => {
-      for (const p of paths) {
-        try{
-          const r = await fetch(p+'?v='+Date.now(), {method:'HEAD', cache:'no-store'});
-          out.insertAdjacentHTML('beforeend', `<div>${r.ok ? '✅' : '❌'} <code>${p}</code> ${r.status}</div>`);
-          if (r.ok) {
-            // set the working one
-            const img = document.getElementById('brandLogo');
-            if (img) img.src = p;
-            break;
-          }
-        }catch(e){
-          out.insertAdjacentHTML('beforeend', `<div>❌ <code>${p}</code> (error)</div>`);
-        }
-      }
-    })();
-  })();
-  </script>
+ 
 
   <!-- Opening animation overlay -->
   <div class="intro" id="intro" aria-hidden="true">
     <div class="intro-logo" id="introLogo">
-      <img src="/logo.png" alt="DBS">
+      <img src="logo.png" alt="DBS">
     </div>
   </div>
 
@@ -144,44 +152,58 @@
       <!-- Centered header with logo on top -->
       <div class="header">
         <div class="logo" id="headerLogo">
-          <img id="brandLogo" src="/logo.png" alt="Design Build Strategies logo" width="256" height="256" decoding="async" loading="eager">
+          <img id="brandLogo" src="logo.png" alt="Design Build Strategies logo" width="256" height="256" decoding="async" loading="eager">
         </div>
         <div>
-          <h1 class="title">Design Build Strategies</h1>
-          <p class="subtitle">General Contractor · Design</p>
-          <p class="subtitle">📍 SoCal</p>
+          <h1 class="title">design build strategies, inc.</h1>
+          <p class="firstSubtitle">CONSTRUCTION · DESIGN</p>
           <p class="subtitle">Residential & Commercial</p>
+          <p class="subtitle">📍 SoCal</p>
         </div>
       </div>
 
       <div class="section">
+
         <div class="grid">
-          <a class="linkbtn" href="https://www.dbstrategies.net" target="_blank" rel="noopener">
-            <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M10.59 13.41a1 1 0 0 0 1.41 1.41l4-4a1 1 0 0 0-1.41-1.41l-4 4ZM8 7h8a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H8a3 3 0 0 1-3-3v-6a3 3 0 0 1 3-3Z"/></svg>
-            <div><div>Company Website</div></div>
+
+           <!-- Website -->
+           <a class="linkbtn" href="https://www.dbstrategies.net" target="_blank" rel="noopener">
+              <div>Website</div>
+           </a>
+
+           <!-- vCard -->
+           <a class="linkbtn" id="vcardLink" download="DBS.vcf">
+              <div>vCard</div>
+              <div class="small">Save Our Contact</div>
           </a>
-
-          <a class="linkbtn" id="vcardLink" download="DBS.vcf">vCard (save our contact)</a>
-
+        
+          <!-- Google Reviews -->
           <a class="linkbtn" href="https://www.google.com/maps/place/Design+Build+Strategies/@34.1445468,-118.1147687,905m/data=!3m1!1e3!4m18!1m9!3m8!1s0x80c2dd8b704102f7:0x241ed1f3e82acf5d!2sDesign+Build+Strategies!8m2!3d34.1445424!4d-118.1121938!9m1!1b1!16s%2Fg%2F11jmywqgsh!3m7!1s0x80c2dd8b704102f7:0x241ed1f3e82acf5d!8m2!3d34.1445424!4d-118.1121938!9m1!1b1!16s%2Fg%2F11jmywqgsh!5m1!1e1?entry=ttu&g_ep=EgoyMDI1MDkwOC4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener">
-            <svg class="icon" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5a2 2 0 0 0-2 2v14l4-4h12a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2Z"/></svg>
-            <div>
               <div>Google Reviews</div>
               <div class="small">Read & Write reviews</div>
-            </div>
           </a>
-        </div>
-      </div>
 
-      <div class="section">
-        <p class="h2">Social</p>
-        <div class="grid">
-          <a class="linkbtn" href="https://www.instagram.com/dbstrategies/" target="_blank" rel="noopener"><div>Instagram</div></a>
-          <a class="linkbtn" href="https://www.linkedin.com/in/johnny-kanounji-a58b936/" target="_blank" rel="noopener"><div>LinkedIn</div></a>
-          <a class="linkbtn" href="https://www.facebook.com/profile.php?id=100084723083924" target="_blank" rel="noopener"><div>Facebook</div></a>
-          <a class="linkbtn" href="https://www.youtube.com/channel/UCpXTjsK6YZKbsE0Wa_kR1yw/featured" target="_blank" rel="noopener"><div>YouTube</div></a>
         </div>
       </div>
+       
+      <div class="section">
+       <!-- Social icons row -->
+      <div class="social-icons">
+        <a href="https://www.instagram.com/dbstrategies/" target="_blank" rel="noopener">
+          <img src="insta.webp" alt="Instagram">
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=100084723083924" target="_blank" rel="noopener">
+          <img src="fb.png" alt="Facebook">
+        </a>
+        <a href="https://www.linkedin.com/in/johnny-kanounji-a58b936/" target="_blank" rel="noopener">
+          <img src="linkedin.png" alt="LinkedIn">
+        </a>
+        <a href="https://www.youtube.com/channel/UCpXTjsK6YZKbsE0Wa_kR1yw/featured" target="_blank" rel="noopener">
+          <img src="YT.webp" alt="YouTube">
+        </a>
+      </div>
+    </div>
+
 
       <div class="divider"></div>
 
