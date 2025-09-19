@@ -26,6 +26,7 @@
     }
     a{color:inherit; text-decoration:none}
 
+    /* Layout */
     .container{max-width:720px; margin:0 auto; padding:32px 20px 56px}
     .card{
       background:linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02));
@@ -34,30 +35,25 @@
     }
     .card.is-visible{opacity:1; transform:none}
 
+    /* Header: centered stack, logo on top */
     .header{display:flex; flex-direction:column; align-items:center; text-align:center}
-
-    .logo {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin-bottom: 1rem;
+    .logo{display:flex; justify-content:center; align-items:center; margin-bottom:1rem}
+    .logo img{
+      max-width:100%;
+      width:200px;
+      height:auto;
+      border-radius:12px;
+      object-fit:cover;
+      display:block;
     }
 
-    .logo img {
-      max-width: 100%;
-      width: 200px;
-      height: auto;
-      border-radius: 12px;
-      object-fit: cover;
-    }
-
-    .title{font-family:'Montserrat',sans-serif; font-size:32px; font-weight:800; line-height:1.15; margin:1px 0 0}
+    .title{font-family:'Montserrat',sans-serif; font-size:32px; font-weight:800; line-height:1.15; margin:1px 0 0; text-transform:lowercase}
     .firstSubtitle{font-family:'Montserrat',sans-serif; margin:10px 0 0; color:var(--muted); letter-spacing:.2px}
     .subtitle{font-family:'Montserrat',sans-serif; margin:2px 0 0; color:var(--muted); letter-spacing:.2px}
 
     .grid{display:grid; gap:14px; margin-top:18px}
     .linkbtn{
-      display:flex; flex-direction: column; justify-content: center; align-items:center; gap:5px; padding:16px 16px; border-radius:14px;
+      display:flex; flex-direction:column; justify-content:center; align-items:center; gap:5px; padding:16px 16px; border-radius:14px;
       border:1px solid rgba(255,122,0,.25);
       background:linear-gradient(180deg, rgba(255,122,0,.12), rgba(255,122,0,.06));
       transition:transform .08s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
@@ -65,7 +61,6 @@
       font-family:'Montserrat',sans-serif; text-align:center;
     }
     .linkbtn:hover{transform:translateY(-1px); border-color:rgba(255,122,0,.45); box-shadow:0 8px 20px rgba(255,122,0,.15)}
-
     .icon{width:22px; height:22px; opacity:.9}
 
     .section{margin-top:24px}
@@ -76,21 +71,12 @@
 
     .small{font-family:'Montserrat',sans-serif; font-size:12px; margin:0; color:var(--muted)}
 
-    .social-icons {
-      margin-top: 18px;
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-    }
-    .social-icons img {
-      width: 36px;
-      height: 36px;
-      object-fit: contain;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-    }
-    .social-icons img:hover { transform: scale(1.15); }
+    /* Social Icons Row */
+    .social-icons{ margin-top:18px; display:flex; justify-content:center; gap:18px }
+    .social-icons img{ width:36px; height:36px; object-fit:contain; cursor:pointer; transition:transform .2s ease }
+    .social-icons img:hover{ transform:scale(1.15) }
 
+    /* Intro overlay */
     .intro{
       position:fixed; inset:0; display:grid; place-items:center; z-index:999;
       background:radial-gradient(900px 600px at 50% -10%, rgba(255,122,0,.12), transparent 60%), var(--bg);
@@ -122,14 +108,16 @@
     }
   </style>
 
+  <!-- Favicons -->
   <link rel="icon" href="./favicon-64.png">
   <link rel="apple-touch-icon" href="./favicon-64.png">
 </head>
 <body>
 
+  <!-- Opening animation overlay -->
   <div class="intro" id="intro" aria-hidden="true">
     <div class="intro-logo" id="introLogo">
-      <img src="logo.png" alt="DBS">
+      <img src="./logo.png" alt="DBS">
     </div>
   </div>
 
@@ -137,7 +125,7 @@
     <section class="card" id="mainCard">
       <div class="header">
         <div class="logo" id="headerLogo">
-          <img id="brandLogo" src="logo.png" alt="Design Build Strategies logo" width="256" height="256">
+          <img id="brandLogo" src="./logo.png" alt="Design Build Strategies logo" width="256" height="256" decoding="async" loading="eager">
         </div>
         <div>
           <h1 class="title">design build strategies, inc.</h1>
@@ -167,10 +155,18 @@
 
       <div class="section">
         <div class="social-icons">
-          <a href="https://www.instagram.com/dbstrategies/" target="_blank"><img src="insta.webp" alt="Instagram"></a>
-          <a href="https://www.facebook.com/profile.php?id=100084723083924" target="_blank"><img src="fb.png" alt="Facebook"></a>
-          <a href="https://www.linkedin.com/in/johnny-kanounji-a58b936/" target="_blank"><img src="linkedin.png" alt="LinkedIn"></a>
-          <a href="https://www.youtube.com/channel/UCpXTjsK6YZKbsE0Wa_kR1yw/featured" target="_blank"><img src="YT.webp" alt="YouTube"></a>
+          <a href="https://www.instagram.com/dbstrategies/" target="_blank" rel="noopener">
+            <img src="./insta.webp" alt="Instagram">
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=100084723083924" target="_blank" rel="noopener">
+            <img src="./fb.png" alt="Facebook">
+          </a>
+          <a href="https://www.linkedin.com/in/johnny-kanounji-a58b936/" target="_blank" rel="noopener">
+            <img src="./linkedin.png" alt="LinkedIn">
+          </a>
+          <a href="https://www.youtube.com/channel/UCpXTjsK6YZKbsE0Wa_kR1yw/featured" target="_blank" rel="noopener">
+            <img src="./YT.webp" alt="YouTube">
+          </a>
         </div>
       </div>
 
@@ -183,16 +179,54 @@
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
+
     (function(){
       const link = document.getElementById('vcardLink');
       if (!link) return;
+      const org   = 'Design Build Strategies';
+      const fn    = 'Johnny Kanounji';
+      const title = 'Architect & General Contractor';
+      const tel   = '+1-626-616-3633';
+      const email = 'jkanounji@dbstrategies.net';
+      const url   = 'https://www.dbstrategies.net';
+      const iso = new Date().toISOString().replace(/[-:]/g,'');
+      const rev = iso.substring(0,15) + 'Z';
       const vcard = [
-        'BEGIN:VCARD','VERSION:3.0','N:Kanounji;Johnny;;;','FN:Johnny Kanounji','ORG:Design Build Strategies','TITLE:Architect & General Contractor',
-        'TEL;TYPE=WORK,VOICE:+1-626-616-3633','EMAIL;TYPE=WORK:jkanounji@dbstrategies.net','URL;TYPE=WORK:https://www.dbstrategies.net',
-        'REV:'+new Date().toISOString(),'END:VCARD'
+        'BEGIN:VCARD','VERSION:3.0','N:Kanounji;Johnny;;;','FN:'+fn,'ORG:'+org,'TITLE:'+title,
+        'TEL;TYPE=WORK,VOICE:'+tel,'EMAIL;TYPE=WORK:'+email,'URL;TYPE=WORK:'+url,'REV:'+rev,'END:VCARD'
       ].join('\n');
-      link.href = 'data:text/vcard;charset=utf-8,'+encodeURIComponent(vcard);
+      link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
     })();
+
+    window.addEventListener('load', () => {
+      const intro   = document.getElementById('intro');
+      const introEl = document.getElementById('introLogo');
+      const card    = document.getElementById('mainCard');
+      const headerLogo = document.getElementById('headerLogo');
+      const reveal = () => {
+        try { card.classList.add('is-visible'); } catch {}
+        try { intro.classList.add('hidden'); } catch {}
+        setTimeout(() => { try { intro.remove(); } catch {} }, 600);
+      };
+      const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (reduce){ reveal(); return; }
+      if (!intro || !introEl || !headerLogo || !card){ reveal(); return; }
+      try{
+        const endBox = headerLogo.getBoundingClientRect();
+        const startBox = introEl.getBoundingClientRect();
+        const deltaX = (endBox.left + endBox.width/2) - (startBox.left + startBox.width/2);
+        const deltaY = (endBox.top + endBox.height/2) - (startBox.top + startBox.height/2);
+        const scaleX = endBox.width / startBox.width;
+        const scaleY = endBox.height / startBox.height;
+        const anim = introEl.animate([
+          { transform: 'translate(0,0) scale(1)', filter:'none', opacity:1 },
+          { transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`, opacity:1 }
+        ], { duration: 850, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards', delay: 150 });
+        anim.onfinish = reveal;
+        setTimeout(() => { try { card.classList.add('is-visible'); } catch {} }, 250);
+        setTimeout(reveal, 1600);
+      } catch { reveal(); }
+    });
   </script>
 </body>
 </html>
