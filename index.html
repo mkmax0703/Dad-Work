@@ -152,7 +152,7 @@
           <img id="brandLogo" src="./logo.png" alt="Design Build Strategies logo" width="256" height="256" decoding="async" loading="eager">
         </div>
         <div>
-          <h1 class="title">design build strategies, inc.</h1>
+          <h1 class="title"> design build strategies </h1>
           <p class="firstSubtitle">CONSTRUCTION · DESIGN</p>
           <p class="subtitle">Residential & Commercial</p>
           <p class="subtitle">📍 SoCal</p>
@@ -170,7 +170,7 @@
             <div class="small">Save Our Contact</div>
           </a>
 
-          <a class="linkbtn" href="https://g.page/r/CV3PKujz0R4kEBM/review" target="_blank" rel="noopener">
+          <a class="linkbtn" href="https://www.google.com/search?sca_esv=9594ada01a48a169&rlz=1C5CHFA_enUS978US979&sxsrf=AE3TifPqi_Vte-Wv3Y_kQYrOjW04wW5z6A:1758582575365&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E9YmpWUZ99G49rmR5K_y7kYz0SxeM_Il2-ZFgbVOsHCHaItpv6WPPpfGRyYq0bGYK6OrIEj3JphJMxsgxB5PqUxWATqdaza4sSARFlMGGyj0ZxYdxQ%3D%3D&q=Design+Build+Strategies+Reviews&sa=X&ved=2ahUKEwiO3tnNvu2PAxVE5ckDHd_bI9sQ0bkNegQIIxAE&biw=1512&bih=857&dpr=2" target="_blank" rel="noopener">
             <div>Google Reviews</div>
             <div class="small">Read & Write reviews</div>
           </a>
@@ -215,9 +215,18 @@
       const iso = new Date().toISOString().replace(/[-:]/g,'');
       const rev = iso.substring(0,15) + 'Z';
       const vcard = [
-        'BEGIN:VCARD','VERSION:3.0','N:Kanounji;Johnny;;;','FN:'+fn,'ORG:'+org, 'PHOTO;TYPE=PNG;VALUE=URI:https://links.dbstrategies.net/logo.png',
-        'TEL;TYPE=WORK,VOICE:'+tel,'EMAIL;TYPE=WORK:'+email,'URL;TYPE=WORK:'+url,'REV:'+rev,'END:VCARD'
-      ].join('\n');
+                  'BEGIN:VCARD',
+                  'VERSION:3.0',
+                  'N:Kanounji;Johnny;;;',
+                  'FN:' + fn,
+                  'ORG:' + org,
+                  'PHOTO;TYPE=PNG;VALUE=URI:https://links.dbstrategies.net/logo.png',
+                  'TEL;TYPE=CELL,VOICE:' + tel,   
+                  'EMAIL;TYPE=INTERNET:' + email, 
+                  'URL:' + url,                   
+                  'REV:' + rev,
+                  'END:VCARD'
+                ].join('\n');
       link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
     })();
   
