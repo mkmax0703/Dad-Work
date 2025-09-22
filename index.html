@@ -203,7 +203,7 @@
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
-
+  
     (function(){
       const link = document.getElementById('vcardLink');
       if (!link) return;
@@ -221,36 +221,48 @@
       ].join('\n');
       link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
     })();
-
+  
     window.addEventListener('load', () => {
       const intro   = document.getElementById('intro');
       const introEl = document.getElementById('introLogo');
       const card    = document.getElementById('mainCard');
       const headerLogo = document.getElementById('headerLogo');
+  
       const reveal = () => {
-        try { card.classList.add('is-visible'); } catch {}
-        try { intro.classList.add('hidden'); } catch {}
-        setTimeout(() => { try { intro.remove(); } catch {} }, 600);
+        card.classList.add('is-visible');
+        intro.classList.add('hidden');
+        setTimeout(() => { try { intro.remove(); } catch {} }, 400);
       };
+  
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduce){ reveal(); return; }
+  
       if (!intro || !introEl || !headerLogo || !card){ reveal(); return; }
+  
       try{
         const endBox = headerLogo.getBoundingClientRect();
         const startBox = introEl.getBoundingClientRect();
+  
         const deltaX = (endBox.left + endBox.width/2) - (startBox.left + startBox.width/2);
         const deltaY = (endBox.top + endBox.height/2) - (startBox.top + startBox.height/2);
         const scaleX = endBox.width / startBox.width;
         const scaleY = endBox.height / startBox.height;
+  
+        // Start fading in the card right away
+        card.classList.add('is-visible');
+  
         const anim = introEl.animate([
-          { transform: 'translate(0,0) scale(1)', filter:'none', opacity:1 },
+          { transform: 'translate(0,0) scale(1)', opacity:1 },
           { transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`, opacity:1 }
-        ], { duration: 850, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards', delay: 150 });
+        ], { duration: 700, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards', delay: 100 });
+  
         anim.onfinish = reveal;
-       try { card.classList.add('is-visible'); } catch {}
-       const delay = window.innerWidth < 600 ? 900 : 1600; 
-       setTimeout(reveal, delay);
-       } catch { reveal(); }
+  
+        // Failsafe in case animation is interrupted
+        setTimeout(reveal, 900);
+      } catch {
+        reveal();
+      }
     });
   </script>
 </body>
