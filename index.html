@@ -231,7 +231,7 @@
       const reveal = () => {
         card.classList.add('is-visible');
         intro.classList.add('hidden');
-        setTimeout(() => { try { intro.remove(); } catch {} }, 400);
+        setTimeout(() => { try { intro.remove(); } catch {} }, 600);
       };
   
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -248,22 +248,26 @@
         const scaleX = endBox.width / startBox.width;
         const scaleY = endBox.height / startBox.height;
   
-        // Start fading in the card right away
-        card.classList.add('is-visible');
-  
+        // Animate the intro logo flying into place
         const anim = introEl.animate([
-          { transform: 'translate(0,0) scale(1)', opacity:1 },
-          { transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`, opacity:1 }
-        ], { duration: 700, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards', delay: 100 });
+          { transform: 'translate(0,0) scale(1)', opacity: 1 },
+          { transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`, opacity: 1 }
+        ], { duration: 850, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards', delay: 100 });
+  
+        // Fade in the card shortly *after* the logo starts moving
+        setTimeout(() => {
+          card.classList.add('is-visible');
+        }, 250);
   
         anim.onfinish = reveal;
   
-        // Failsafe in case animation is interrupted
-        setTimeout(reveal, 900);
+        // Safety fallback
+        setTimeout(reveal, 1500);
       } catch {
         reveal();
       }
     });
   </script>
+  
 </body>
 </html>
