@@ -215,7 +215,7 @@
       const iso = new Date().toISOString().replace(/[-:]/g,'');
       const rev = iso.substring(0,15) + 'Z';
       const vcard = [
-        'BEGIN:VCARD','VERSION:3.0','N:Kanounji;Johnny;;;','FN:'+fn,'ORG:'+org,
+        'BEGIN:VCARD','VERSION:3.0','N:Kanounji;Johnny;;;','FN:'+fn,'ORG:'+org, 'PHOTO;TYPE=PNG;VALUE=URI:https://links.dbstrategies.net/logo.png',
         'TEL;TYPE=WORK,VOICE:'+tel,'EMAIL;TYPE=WORK:'+email,'URL;TYPE=WORK:'+url,'REV:'+rev,'END:VCARD'
       ].join('\n');
       link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
