@@ -15,7 +15,12 @@
       --bg:#0a0a0a; --card:#111315; --muted:#9aa4af; --text:#ffffff; --accent:#ff7a00; --accent2:#ffd2a3;
     }
     *{box-sizing:border-box}
-    html,body{height:100%}
+
+    html, body {
+      min-height: 100%;
+      height: auto;
+    }
+
     body{
       margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
       color:var(--text);
@@ -23,7 +28,9 @@
         radial-gradient(1200px 800px at 80% -10%, rgba(255,122,0,.08), transparent 60%),
         radial-gradient(1200px 800px at -10% 110%, rgba(255,210,163,.12), transparent 60%),
         var(--bg);
+        background-attachment: fixed;
     }
+    
     a{color:inherit; text-decoration:none}
 
     /* Layout */
