@@ -209,14 +209,13 @@
       if (!link) return;
       const org   = 'Design Build Strategies';
       const fn    = 'Johnny Kanounji';
-      const title = 'Architect & General Contractor';
       const tel   = '+1-626-616-3633';
       const email = 'jkanounji@dbstrategies.net';
       const url   = 'https://www.dbstrategies.net';
       const iso = new Date().toISOString().replace(/[-:]/g,'');
       const rev = iso.substring(0,15) + 'Z';
       const vcard = [
-        'BEGIN:VCARD','VERSION:3.0','N:Kanounji;Johnny;;;','FN:'+fn,'ORG:'+org,'TITLE:'+title,
+        'BEGIN:VCARD','VERSION:3.0','N:Kanounji;Johnny;;;','FN:'+fn,'ORG:'+org,
         'TEL;TYPE=WORK,VOICE:'+tel,'EMAIL;TYPE=WORK:'+email,'URL;TYPE=WORK:'+url,'REV:'+rev,'END:VCARD'
       ].join('\n');
       link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
@@ -248,20 +247,17 @@
         const scaleX = endBox.width / startBox.width;
         const scaleY = endBox.height / startBox.height;
   
-        // Animate the intro logo flying into place
         const anim = introEl.animate([
           { transform: 'translate(0,0) scale(1)', opacity: 1 },
           { transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`, opacity: 1 }
         ], { duration: 850, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards', delay: 300 });
   
-        // Fade in the card shortly *after* the logo starts moving
         setTimeout(() => {
           card.classList.add('is-visible');
         }, 250);
   
         anim.onfinish = reveal;
   
-        // Safety fallback
         setTimeout(reveal, 1500);
       } catch {
         reveal();
