@@ -215,18 +215,25 @@
       const iso = new Date().toISOString().replace(/[-:]/g,'');
       const rev = iso.substring(0,15) + 'Z';
       const vcard = [
-                  'BEGIN:VCARD',
-                  'VERSION:3.0',
-                  'N:Kanounji;Johnny;;;',
-                  'FN:' + fn,
-                  'ORG:' + org,
-                  'PHOTO;TYPE=PNG;VALUE=URI:https://links.dbstrategies.net/logo.png',
-                  'TEL;TYPE=CELL,VOICE:' + tel,   
-                  'EMAIL;TYPE=INTERNET:' + email, 
-                  'URL:' + url,                   
-                  'REV:' + rev,
-                  'END:VCARD'
-                ].join('\n');
+          'BEGIN:VCARD',
+          'VERSION:3.0',
+          'N:Kanounji;Johnny;;;',
+          'FN:'+fn,
+          'ORG:'+org,
+          'PHOTO;TYPE=PNG;VALUE=URI:https://links.dbstrategies.net/logo.png',
+
+          'item1.TEL;TYPE=CELL,VOICE:'+tel,
+          'item1.X-ABLabel:Mobile',
+      
+          'item2.EMAIL;TYPE=INTERNET:'+email,
+          'item2.X-ABLabel:Work Email',
+
+          'item3.URL:'+url,
+          'item3.X-ABLabel:Website',
+
+          'REV:'+rev,
+          'END:VCARD'
+      ].join('\n');
       link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
     })();
   
