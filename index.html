@@ -52,14 +52,31 @@
     .subtitle{font-family:'Montserrat',sans-serif; margin:2px 0 0; color:var(--muted); letter-spacing:.2px}
 
     .grid{display:grid; gap:14px; margin-top:18px}
+
     .linkbtn{
       display:flex; flex-direction:column; justify-content:center; align-items:center; gap:5px; padding:16px 16px; border-radius:14px;
       border:1px solid rgba(255,122,0,.25);
       background:linear-gradient(180deg, rgba(255,122,0,.12), rgba(255,122,0,.06));
       transition:transform .08s ease, background .2s ease, border-color .2s ease, box-shadow .2s ease;
-      width:300px; margin:0 auto;
-      font-family:'Montserrat',sans-serif; text-align:center;
+      width:100%; 
+      max-width: 320px;
+      margin:0 auto;
+      font-family:'Montserrat',sans-serif; 
+      text-align:center;
     }
+
+    @media (max-width: 480px) {
+      .logo img {
+          width: 140px;  
+      }
+      .title {
+          font-size: 22px; 
+      }
+      .linkbtn {
+          max-width: 90%; 
+      }
+     }
+
     .linkbtn:hover{transform:translateY(-1px); border-color:rgba(255,122,0,.45); box-shadow:0 8px 20px rgba(255,122,0,.15)}
     .icon{width:22px; height:22px; opacity:.9}
 
