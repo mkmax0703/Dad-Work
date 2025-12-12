@@ -201,85 +201,119 @@
   </main>
 
   <script>
+    // Set year in footer
     document.getElementById('y').textContent = new Date().getFullYear();
-  
+
+    // Build vCard with embedded logo
     async function generateVCard() {
-    const link = document.getElementById('vcardLink');
-    if (!link) return;
+      const link = document.getElementById('vcardLink');
+      if (!link) return;
 
-    // 1. Load your logo file
-    const response = await fetch('./logo.png');
-    const blob = await response.blob();
+      try {
+        // 1. Load your logo file
+        const response = await fetch('./logo.png');
+        const blob = await response.blob();
 
-    // 2. Convert logo to Base64 (browser does this)
-    const base64 = await new Promise(resolve => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result.split(',')[1]);
-      reader.readAsDataURL(blob);
-    });
+        // 2. Convert logo to Base64 (browser does this)
+        const base64 = await new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.onloadend = () => {
+            const result = reader.result;
+            if (typeof result === 'string') {
+              const commaIndex = result.indexOf(',');
+              resolve(commaIndex !== -1 ? result.slice(commaIndex + 1) : result);
+            } else {
+              reject(new Error('Unexpected FileReader result'));
+            }
+          };
+          reader.onerror = reject;
+          reader.readAsDataURL(blob);
+        });
 
-    // 3. Create the vCard using the Base64 photo
-    const vcard = [
-      'BEGIN:VCARD',
-      'VERSION:3.0',
-      'N:Kanounji;Johnny;;;',
-      'FN:Johnny Kanounji',
-      'ORG:Design Build Strategies',
-      'PHOTO;ENCODING=b;TYPE=PNG:' + base64,
-      'TEL;TYPE=CELL:+1-626-344-6480',
-      'TEL;TYPE=CELL:+1-626-616-3633',
-      'EMAIL:jkanounji@dbstrategies.net',
-      'URL:https://www.dbstrategies.net',
-      'END:VCARD'
-    ].join('\n');
+        // 3. Create the vCard using the Base64 photo
+        const org   = 'Design Build Strategies';
+        const fn    = 'Johnny Kanounji';
+        const tel1  = '+1-626-616-3633';
+        const tel2  = '+1-626-344-6480';
+        const email = 'jkanounji@dbstrategies.net';
+        const url   = 'https://www.dbstrategies.net';
+        const iso   = new Date().toISOString().replace(/[-:]/g, '');
+        const rev   = iso.substring(0, 15) + 'Z';
 
-    // 4. Make it downloadable
-    link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
+        const lines = [
+          'BEGIN:VCARD',
+          'VERSION:3.0',
+          'N:Kanounji;Johnny;;;',
+          'FN:' + fn,
+          'ORG:' + org,
+          'PHOTO;ENCODING=b;TYPE=PNG:' + base64,
+          'TEL;TYPE=CELL,VOICE:' + tel2,
+          'TEL;TYPE=CELL,VOICE:' + tel1,
+          'EMAIL;TYPE=INTERNET:' + email,
+          'URL:' + url,
+          'REV:' + rev,
+          'END:VCARD'
+        ];
+
+        const vcard = lines.join('\n');
+
+        // 4. Make it downloadable
+        link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
+        link.setAttribute('download', 'DBS.vcf');
+      } catch (err) {
+        console.error('vCard generation failed:', err);
+        // If something goes wrong, at least make the button not dead
+        link.removeAttribute('download');
+        link.href = 'tel:+16266163633';
+      }
     }
-  
+
+    // Animation + vCard on page load
     window.addEventListener('load', () => {
+      // Build the vCard when the page is ready
+      generateVCard();
+
       const intro   = document.getElementById('intro');
       const introEl = document.getElementById('introLogo');
       const card    = document.getElementById('mainCard');
       const headerLogo = document.getElementById('headerLogo');
-  
+
       const reveal = () => {
         card.classList.add('is-visible');
         intro.classList.add('hidden');
         setTimeout(() => { try { intro.remove(); } catch {} }, 600);
       };
-  
+
       const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (reduce){ reveal(); return; }
-  
+
       if (!intro || !introEl || !headerLogo || !card){ reveal(); return; }
-  
+
       try{
         const endBox = headerLogo.getBoundingClientRect();
         const startBox = introEl.getBoundingClientRect();
-  
+
         const deltaX = (endBox.left + endBox.width/2) - (startBox.left + startBox.width/2);
         const deltaY = (endBox.top + endBox.height/2) - (startBox.top + startBox.height/2);
         const scaleX = endBox.width / startBox.width;
         const scaleY = endBox.height / startBox.height;
-  
+
         const anim = introEl.animate([
           { transform: 'translate(0,0) scale(1)', opacity: 1 },
           { transform: `translate(${deltaX}px, ${deltaY}px) scale(${scaleX}, ${scaleY})`, opacity: 1 }
         ], { duration: 850, easing: 'cubic-bezier(.2,.8,.2,1)', fill: 'forwards', delay: 300 });
-  
+
         setTimeout(() => {
           card.classList.add('is-visible');
         }, 250);
-  
+
         anim.onfinish = reveal;
-  
+
         setTimeout(reveal, 1500);
       } catch {
         reveal();
       }
     });
   </script>
-  
 </body>
 </html>
