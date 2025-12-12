@@ -166,7 +166,7 @@
           </a>
 
           <a class="linkbtn" id="vcardLink" download="DBS.vcf">
-            <div> Save Contact </div>
+            <div> Contact Info - Get In Touch </div>
           </a>
 
           <a class="linkbtn" href="https://www.google.com/search?sca_esv=9594ada01a48a169&rlz=1C5CHFA_enUS978US979&sxsrf=AE3TifPqi_Vte-Wv3Y_kQYrOjW04wW5z6A:1758582575365&si=AMgyJEtREmoPL4P1I5IDCfuA8gybfVI2d5Uj7QMwYCZHKDZ-E9YmpWUZ99G49rmR5K_y7kYz0SxeM_Il2-ZFgbVOsHCHaItpv6WPPpfGRyYq0bGYK6OrIEj3JphJMxsgxB5PqUxWATqdaza4sSARFlMGGyj0ZxYdxQ%3D%3D&q=Design+Build+Strategies+Reviews&sa=X&ved=2ahUKEwiO3tnNvu2PAxVE5ckDHd_bI9sQ0bkNegQIIxAE&biw=1512&bih=857&dpr=2" target="_blank" rel="noopener">
@@ -208,7 +208,8 @@
       if (!link) return;
       const org   = 'Design Build Strategies';
       const fn    = 'Johnny Kanounji';
-      const tel   = '+1-626-616-3633';
+      const tel1   = '+1-626-616-3633';
+      const tel2   = '+1-626-344-6480';
       const email = 'jkanounji@dbstrategies.net';
       const url   = 'https://www.dbstrategies.net';
       const iso = new Date().toISOString().replace(/[-:]/g,'');
@@ -221,14 +222,17 @@
           'ORG:'+org,
           'PHOTO;TYPE=PNG;VALUE=URI:https://links.dbstrategies.net/logo.png',
 
-          'item1.TEL;TYPE=CELL,VOICE:'+tel,
-          'item1.X-ABLabel:Mobile',
-      
-          'item2.EMAIL;TYPE=INTERNET:'+email,
-          'item2.X-ABLabel:Work Email',
+          'item1.TEL;TYPE=CELL,VOICE:'+tel2,
+          'item1.X-ABLabel:Main Office',
 
-          'item3.URL:'+url,
-          'item3.X-ABLabel:Website',
+          'item2.TEL;TYPE=CELL,VOICE:'+tel1,
+          'item2.X-ABLabel:Direct Line',
+
+          'item3.EMAIL;TYPE=INTERNET:'+email,
+          'item3.X-ABLabel:Work Email',
+
+          'item4.URL:'+url,
+          'item4.X-ABLabel:Website',
 
           'REV:'+rev,
           'END:VCARD'
