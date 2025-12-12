@@ -203,42 +203,39 @@
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
   
-    (function(){
-      const link = document.getElementById('vcardLink');
-      if (!link) return;
-      const org   = 'Design Build Strategies';
-      const fn    = 'Johnny Kanounji';
-      const tel1   = '+1-626-616-3633';
-      const tel2   = '+1-626-344-6480';
-      const email = 'jkanounji@dbstrategies.net';
-      const url   = 'https://www.dbstrategies.net';
-      const iso = new Date().toISOString().replace(/[-:]/g,'');
-      const rev = iso.substring(0,15) + 'Z';
-      const vcard = [
-          'BEGIN:VCARD',
-          'VERSION:3.0',
-          'N:Kanounji;Johnny;;;',
-          'FN:'+fn,
-          'ORG:'+org,
-          'PHOTO;TYPE=PNG;VALUE=URI:https://links.dbstrategies.net/logo.png',
+    async function generateVCard() {
+    const link = document.getElementById('vcardLink');
+    if (!link) return;
 
-          'item1.TEL;TYPE=CELL,VOICE:'+tel2,
-          'item1.X-ABLabel:Main Office',
+    // 1. Load your logo file
+    const response = await fetch('./logo.png');
+    const blob = await response.blob();
 
-          'item2.TEL;TYPE=CELL,VOICE:'+tel1,
-          'item2.X-ABLabel:Direct Line',
+    // 2. Convert logo to Base64 (browser does this)
+    const base64 = await new Promise(resolve => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result.split(',')[1]);
+      reader.readAsDataURL(blob);
+    });
 
-          'item3.EMAIL;TYPE=INTERNET:'+email,
-          'item3.X-ABLabel:Work Email',
+    // 3. Create the vCard using the Base64 photo
+    const vcard = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      'N:Kanounji;Johnny;;;',
+      'FN:Johnny Kanounji',
+      'ORG:Design Build Strategies',
+      'PHOTO;ENCODING=b;TYPE=PNG:' + base64,
+      'TEL;TYPE=CELL:+1-626-344-6480',
+      'TEL;TYPE=CELL:+1-626-616-3633',
+      'EMAIL:jkanounji@dbstrategies.net',
+      'URL:https://www.dbstrategies.net',
+      'END:VCARD'
+    ].join('\n');
 
-          'item4.URL:'+url,
-          'item4.X-ABLabel:Website',
-
-          'REV:'+rev,
-          'END:VCARD'
-      ].join('\n');
-      link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
-    })();
+    // 4. Make it downloadable
+    link.href = 'data:text/vcard;charset=utf-8,' + encodeURIComponent(vcard);
+    }
   
     window.addEventListener('load', () => {
       const intro   = document.getElementById('intro');
